@@ -64,3 +64,15 @@ body {
     opacity: 0;
   }
 }
+
+.nav-light {
+  border-color: rgba(237, 146, 191, 0.177);
+}
+
+.nav-light span {
+  color: #ec4899 !important;
+}
+
+.nav-light .logo-dot {
+  background-color: #ec4899 !important;
+}

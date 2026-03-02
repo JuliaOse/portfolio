@@ -1,47 +1,3 @@
-// "use client";
-// import Link from "next/link";
-// import { forwardRef } from "react";
-
-// const Navbar = forwardRef<HTMLDivElement>((props, logoRef) => {
-//   return (
-//     <nav className="fixed top-6 left-0 right-0 z-50 flex justify-center">
-//       <div
-//         className="flex items-center justify-between
-//                    w-[90%] max-w-sm
-//                    px-10 py-3
-//                    rounded-full
-//                    border border-white/20
-//                    bg-white/10 backdrop-blur-md
-//                    shadow-lg"
-//       >
-//         {/* Logo */}
-//         <div ref={logoRef} className="flex items-center gap-1">
-//           <span className="text-white font-light text-sm">J</span>
-//           <span className="w-2 h-2 bg-white rounded-full"></span>
-//         </div>
-
-//         <div className="flex gap-8 text-sm">
-//           <Link
-//             href="#about"
-//             className="text-white/70 hover:text-white transition"
-//           >
-//             About
-//           </Link>
-//           <Link
-//             href="#contact"
-//             className="text-white/70 hover:text-white transition"
-//           >
-//             Contact
-//           </Link>
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// });
-
-// Navbar.displayName = "Navbar";
-// export default Navbar;
-
 "use client";
 import Link from "next/link";
 import { forwardRef, useEffect, useState } from "react";
@@ -126,12 +82,13 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
       <nav className=" fixed top-6 left-0 right-0 z-50 flex justify-center">
         <div
           className="nav-body flex items-center justify-between
-                     w-[90%] max-w-sm
-                     px-10 py-3
-                     rounded-full
-                     border border-white/20
-                     bg-white/10 backdrop-blur-md
-                     shadow-lg"
+             w-[90%] max-w-sm
+             px-10 py-3
+             rounded-full
+             border border-white/20
+             bg-white/10 backdrop-blur-md
+             shadow-lg
+             transition-all duration-300"
         >
           <div ref={logoRef} className="flex items-center gap-1">
             <span className="text-white font-light text-sm">
@@ -144,15 +101,19 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
           <div className="flex gap-8 text-sm">
             <Link
               href="#about"
-              className="text-white/70 hover:text-white transition"
+              className="nav-text text-white/70 hover:text-white transition"
             >
-              About
+              <span className="nav-text text-white font-light text-sm">
+                About
+              </span>
             </Link>
             <Link
               href="#contact"
               className="text-white/70 hover:text-white transition"
             >
-              Contact
+              <span className="nav-text text-white font-light text-sm">
+                Contact
+              </span>
             </Link>
           </div>
         </div>
