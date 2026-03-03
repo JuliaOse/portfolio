@@ -275,18 +275,11 @@ export default function Home() {
         ease: "power2.inOut",
       },
     });
-
     ScrollTrigger.create({
       trigger: "#about",
-      start: "top 80px", // when about reaches navbar area
-      toggleClass: {
-        targets: ".nav-body",
-        className: "nav-light",
-      },
-    });
-    ScrollTrigger.create({
-      trigger: "#contact",
       start: "top 80px",
+      endTrigger: "#contact",
+      end: "bottom 80px",
       toggleClass: {
         targets: ".nav-body",
         className: "nav-light",
@@ -334,6 +327,12 @@ export default function Home() {
         "creative",
         "frontend developer",
         "problem solver",
+        "web developer",
+        "mobile developer",
+        "CS Major grad",
+        "UG Graduate",
+
+        "continuous learner",
       ];
 
       let index = 0;
@@ -376,7 +375,7 @@ export default function Home() {
 
       // After intro finishes + 3 seconds → start loop
       introTl.call(() => {
-        gsap.delayedCall(1.2, () => {
+        gsap.delayedCall(1, () => {
           const rotateTl = gsap.timeline({ repeat: -1 });
 
           rotateTl
@@ -476,32 +475,22 @@ export default function Home() {
         ref={sectionRef}
         className="relative h-screen w-full overflow-hidden"
       >
-        {/* <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <source src="/background.mp4" type="video/mp4" />
-        </video> */}
-
         <div
           className="relative z-10 flex flex-col h-full items-center 
-                justify-end md:justify-end 
-                text-white 
-                pb-12 sm:pb-16 md:pb-20 px-4"
+          justify-end
+          text-white 
+          pb-10 sm:pb-16 md:pb-20 px-4"
         >
           <Image
             src="/m1.png"
             width={310}
             height={310}
             alt="avatar"
-            className="w-100 sm:w-52 md:w-64 lg:w-[370px] h-auto"
+            className="w-48 sm:w-52 md:w-64 lg:w-[370px] h-auto"
           />
 
-          <h1 className="relative text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-semibold tracking-tight mt-6">
+          <h1 className="relative text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-semibold tracking-tight mt-4 text-center">
+            {/* ← added text-center, reduced mobile size from text-5xl to text-4xl */}
             <span ref={hiRef} className="inline-block">
               {typedFirst}
             </span>{" "}
@@ -531,20 +520,21 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 gap-6 flex flex-col items-center justify-center min-h-screen">
+        <div className="relative z-10 gap-6 flex flex-col items-center justify-center min-h-screen px-6">
           <h2
             ref={aboutTitleRef}
-            className="text-6xl font-semibold text-pink-600"
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold text-pink-600"
           >
             About Me
           </h2>
-          <p className="text-5xl text-pink-500  ">
-            <span ref={aboutTextRef} className="text-center">
+          <p className="text-2xl sm:text-3xl text-center ml-4  md:text-5xl text-pink-500 ">
+            {/* ← scaled down for mobile */}
+            <span ref={aboutTextRef} className="">
               I am a&nbsp;
             </span>
             <span
               ref={rotatingWordRef}
-              className="inline-block perspective-1000 w-[450px] "
+              className="inline-block text-start perspective-1000 w-[250px] sm:w-[300px] md:w-[450px]"
             />
           </p>
         </div>
@@ -579,89 +569,112 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center gap-10 px-6 w-full max-w-3xl">
-          {/* Title */}
-          <h2
-            // ref={contactTitleRef}  ← uncomment in Home
-            className="text-6xl font-semibold text-pink-600"
-          >
+        <div className="relative z-10 flex flex-col items-center justify-center gap-8 px-6 w-full max-w-3xl">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-pink-600">
+            {/* ← scaled down */}
             Get in Touch
           </h2>
 
-          <p className="text-pink-400 text-xl text-center max-w-md">
+          <p className="text-pink-400 text-base sm:text-xl text-center max-w-md">
+            {/* ← text-base on mobile */}
             Whether it's a project, a question, or just a hello, my inbox is
             always open.
           </p>
 
-          {/* Cards */}
-          <div
-            // ref={contactCardsRef}  ← uncomment in Home
-            className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full"
-          >
-            {/* Email */}
+          <div className="flex flex-row gap-8 justify-center w-full">
+            {/* ← changed from grid to flex row so circles stay side by side on mobile */}
             <a
-              href="mailto:julia@example.com"
-              className="contact-card group flex flex-col items-center gap-3 
-                       bg-white/60 backdrop-blur-sm border border-pink-100 
-                       rounded-3xl p-8 
-                       hover:bg-white/90 hover:shadow-xl hover:shadow-pink-100 
-                       hover:-translate-y-1
-                       transition-all duration-300 cursor-pointer"
+              href="mailto:akomaajulia@gmail.com"
+              className="flex items-center flex-col gap-2"
             >
-              <span className="text-3xl">✉️</span>
-              <span className="text-pink-600 font-semibold text-sm tracking-wide uppercase">
+              <div
+                className="bg-white/60 backdrop-blur-sm border border-pink-100 
+        hover:bg-white/90 hover:shadow-xl hover:shadow-pink-100 
+        hover:-translate-y-1 transition-all duration-300 
+        w-16 h-16 sm:w-20 sm:h-20 rounded-full 
+        flex items-center justify-center"
+              >
+                {/* ← w-16 on mobile, w-20 on sm+ */}
+                <Image
+                  src="/mail.png"
+                  width={24}
+                  height={24}
+                  alt="email"
+                  className="sm:w-[30px] sm:h-[30px]"
+                />
+              </div>
+              <span className="text-pink-600 font-medium text-xs sm:text-sm tracking-wide text-center">
                 Email
               </span>
-              <span className="text-pink-400 text-xs">julia@example.com</span>
             </a>
 
-            {/* LinkedIn */}
             <a
-              href="https://linkedin.com/in/julia"
+              href="https://linkedin.com/in/julia-osei-56042a232"
+              className="flex items-center flex-col gap-2"
               target="_blank"
-              rel="noopener noreferrer"
-              className="contact-card group flex flex-col items-center gap-3 
-                       bg-white/60 backdrop-blur-sm border border-pink-100 
-                       rounded-3xl p-8 
-                       hover:bg-white/90 hover:shadow-xl hover:shadow-pink-100 
-                       hover:-translate-y-1
-                       transition-all duration-300 cursor-pointer"
             >
-              <span className="text-3xl">💼</span>
-              <span className="text-pink-600 font-semibold text-sm tracking-wide uppercase">
+              <div
+                className="bg-white/60 backdrop-blur-sm border border-pink-100 
+        hover:bg-white/90 hover:shadow-xl hover:shadow-pink-100 
+        hover:-translate-y-1 transition-all duration-300 
+        w-16 h-16 sm:w-20 sm:h-20 rounded-full 
+        flex items-center justify-center"
+              >
+                <Image
+                  src="/linkedin.png"
+                  width={24}
+                  height={24}
+                  alt="linkedin"
+                  className="sm:w-[30px] sm:h-[30px]"
+                />
+              </div>
+              <span className="text-pink-600 font-medium text-xs sm:text-sm tracking-wide text-center">
                 LinkedIn
               </span>
-              <span className="text-pink-400 text-xs">in/julia</span>
             </a>
 
-            {/* GitHub */}
             <a
-              href="https://github.com/julia"
+              href="https://github.com/JuliaOse"
+              className="flex items-center flex-col gap-2"
               target="_blank"
-              rel="noopener noreferrer"
-              className="contact-card group flex flex-col items-center gap-3 
-                       bg-white/60 backdrop-blur-sm border border-pink-100 
-                       rounded-3xl p-8 
-                       hover:bg-white/90 hover:shadow-xl hover:shadow-pink-100 
-                       hover:-translate-y-1
-                       transition-all duration-300 cursor-pointer"
             >
-              <span className="text-3xl">🐙</span>
-              <span className="text-pink-600 font-semibold text-sm tracking-wide uppercase">
+              <div
+                className="bg-white/60 backdrop-blur-sm border border-pink-100 
+        hover:bg-white/90 hover:shadow-xl hover:shadow-pink-100 
+        hover:-translate-y-1 transition-all duration-300 
+        w-16 h-16 sm:w-20 sm:h-20 rounded-full 
+        flex items-center justify-center"
+              >
+                <Image
+                  src="/git.png"
+                  width={24}
+                  height={24}
+                  alt="github"
+                  className="sm:w-[30px] sm:h-[30px]"
+                />
+              </div>
+              <span className="text-pink-600 font-medium text-xs sm:text-sm tracking-wide text-center">
                 GitHub
               </span>
-              <span className="text-pink-400 text-xs">github.com/julia</span>
             </a>
           </div>
-
-          {/* Subtle footer note */}
         </div>
       </section>
-      <footer>
-        <p className="text-pink-300 text-sm mt-4">
-          Made with <span className="text-pink-400">♡</span> by Julia
-        </p>
-      </footer>
+      <section
+        id="footer"
+        className="relative h-[20vh] w-full flex items-center justify-center"
+      >
+        {/* Background panel — matching contact bottom rounding */}
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center gap-2 px-6 text-center">
+          <p className="text-pink-400 max-w-md">Built with ❤ by Julia Osei.</p>
+
+          <div className="mt-6 text-pink-300 text-xs">
+            © {new Date().getFullYear()} Julia. All rights reserved.
+          </div>
+        </div>
+      </section>
     </>
   );
 }
