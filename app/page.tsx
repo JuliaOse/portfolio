@@ -7,6 +7,7 @@ import Image from "next/image";
 import Navbar from "../app/components/Navbar";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+import Loader from "./components/Loader";
 
 export default function Home() {
   const firstText = "Hi! I'm ";
@@ -16,6 +17,7 @@ export default function Home() {
   const [charIndex, setCharIndex] = useState(0);
   const [isTypingDone, setIsTypingDone] = useState(false);
   const [triggerNavAnimation, setTriggerNavAnimation] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const hiRef = useRef<HTMLSpanElement | null>(null);
@@ -32,6 +34,7 @@ export default function Home() {
   const contactCardsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!isLoaded) return;
     const interval = setInterval(() => {
       setCharIndex((prev) => {
         if (prev >= fullText.length) {
@@ -44,7 +47,7 @@ export default function Home() {
     }, 80); // realistic typing speed
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isLoaded, fullText.length]);
 
   // Lock scroll while typewriter is running, release when done
   useEffect(() => {
@@ -463,6 +466,7 @@ export default function Home() {
 
   return (
     <>
+      {!isLoaded && <Loader onComplete={() => setIsLoaded(true)} />}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <video
           ref={videoRef}
