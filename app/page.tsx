@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import Navbar from "../app/components/Navbar.tsx";
+import Navbar from "../app/components/Navbar";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
@@ -17,9 +17,9 @@ export default function Home() {
   const [isTypingDone, setIsTypingDone] = useState(false);
   const [triggerNavAnimation, setTriggerNavAnimation] = useState(false);
 
-  const sectionRef = useRef(null);
-  const hiRef = useRef(null);
-  const nameRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const hiRef = useRef<HTMLSpanElement | null>(null);
+  const nameRef = useRef<HTMLSpanElement | null>(null);
   const logoRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const aboutTextRef = useRef<HTMLParagraphElement | null>(null);
@@ -315,6 +315,8 @@ export default function Home() {
       //   },
       // );
 
+      if (!aboutTextRef.current) return;
+
       const staticText = aboutTextRef.current.innerText;
 
       aboutTextRef.current.innerHTML = staticText
@@ -338,6 +340,7 @@ export default function Home() {
       let index = 0;
 
       // Set first rotating word
+      if (!rotatingWordRef.current) return;
       rotatingWordRef.current.textContent = words[0];
 
       // Create ONE timeline for intro
@@ -406,6 +409,8 @@ export default function Home() {
   useEffect(() => {
     if (!isTypingDone || !triggerNavAnimation) return;
     if (!contactRef.current) return;
+    const cards = contactCardsRef.current;
+    if (!cards) return;
 
     const ctx = gsap.context(() => {
       // Title reveal
@@ -428,7 +433,7 @@ export default function Home() {
 
       // Cards stagger
       gsap.fromTo(
-        contactCardsRef.current?.querySelectorAll(".contact-card"),
+        cards.querySelectorAll(".contact-card"),
         { y: 60, opacity: 0, scale: 0.95 },
         {
           y: 0,
@@ -577,8 +582,8 @@ export default function Home() {
 
           <p className="text-pink-400 text-base sm:text-xl text-center max-w-md">
             {/* ← text-base on mobile */}
-            Whether it's a project, a question, or just a hello, my inbox is
-            always open.
+            Whether it&apos;s a project, a question, or just a hello, my inbox
+            is always open.
           </p>
 
           <div className="flex flex-row gap-8 justify-center w-full">
