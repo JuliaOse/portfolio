@@ -49,6 +49,16 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [isLoaded, fullText.length]);
 
+  // resize for mobile responsivenss
+  useEffect(() => {
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Lock scroll while typewriter is running, release when done
   useEffect(() => {
     if (isTypingDone) {
@@ -135,7 +145,7 @@ export default function Home() {
           end: "+=4000",
           scrub: 2,
           pin: true,
-          // ✅ Snap to next section after pin completes
+          // Snap to next section after pin completes
           // snap: {
           //   snapTo: (value) => (value > 0.99 ? 1 : 0), // snap to start or end only
           //   duration: 0.5,
@@ -206,7 +216,7 @@ export default function Home() {
         0,
       );
 
-      // 🔥 SMALL PAUSE (no delay hack)
+      // SMALL PAUSE (no delay hack)
       tl.to(nameRef.current, { scale: 1.1, duration: 0.8 });
 
       // -------------------------
@@ -366,7 +376,7 @@ export default function Home() {
         ease: "back.out(1.7)",
       });
 
-      // 🔥 Animate first rotating word the SAME WAY
+      // Animate first rotating word the SAME WAY
       introTl.from(
         rotatingWordRef.current,
         {
@@ -499,7 +509,6 @@ export default function Home() {
           />
 
           <h1 className="relative text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-semibold tracking-tight mt-4 text-center">
-            {/* ← added text-center, reduced mobile size from text-5xl to text-4xl */}
             <span ref={hiRef} className="inline-block">
               {typedFirst}
             </span>{" "}
@@ -537,7 +546,6 @@ export default function Home() {
             About Me
           </h2>
           <p className="text-2xl sm:text-3xl text-center ml-4  md:text-5xl text-pink-500 ">
-            {/* ← scaled down for mobile */}
             <span ref={aboutTextRef} className="">
               I am a&nbsp;
             </span>
@@ -580,18 +588,15 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center gap-8 px-6 w-full max-w-3xl">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-pink-600">
-            {/* ← scaled down */}
             Get in Touch
           </h2>
 
           <p className="text-pink-400 text-base sm:text-xl text-center max-w-md">
-            {/* ← text-base on mobile */}
             Whether it&apos;s a project, a question, or just a hello, my inbox
             is always open.
           </p>
 
           <div className="flex flex-row gap-8 justify-center w-full">
-            {/* ← changed from grid to flex row so circles stay side by side on mobile */}
             <a
               href="mailto:akomaajulia@gmail.com"
               className="flex items-center flex-col gap-2"
@@ -603,7 +608,6 @@ export default function Home() {
         w-16 h-16 sm:w-20 sm:h-20 rounded-full 
         flex items-center justify-center"
               >
-                {/* ← w-16 on mobile, w-20 on sm+ */}
                 <Image
                   src="/mail.png"
                   width={24}
@@ -673,8 +677,6 @@ export default function Home() {
         id="footer"
         className="relative h-[20vh] w-full flex items-center justify-center"
       >
-        {/* Background panel — matching contact bottom rounding */}
-
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center gap-2 px-6 text-center">
           <p className="text-pink-400 max-w-md">Built with ❤ by Julia Osei.</p>

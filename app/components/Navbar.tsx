@@ -55,7 +55,7 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
     };
 
     const reloadPage = () => {
-      window.location.href = "/";
+      window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     return (
